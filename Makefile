@@ -36,8 +36,7 @@ SHELL		:=	/bin/bash
 all :			$(NAME)
 
 $(NAME) :		$(OBJ_DIR) $(OBJS)
-	@ld -o $(NAME) $(OBJS)
-	@ld objects/ft_puts.o objects/main.o objects/ft_strlen.o -macosx_version_min 10.8 -lSystem -o ft_puts
+	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o ft_puts
 	@printf "\r\033[38;5;117m✓ MAKE $(NAME)\033[0m\033[0m\n"
 
 $(OBJ_DIR) :
