@@ -25,6 +25,10 @@ OBJ_DIR		=	objects/
 
 SRC_BASE	=	ft_puts.s \
 				ft_strlen.s \
+				ft_isalpha.s \
+				ft_isalnum.s \
+				ft_isascii.s \
+				ft_isprint.s \
 				main.s
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)
@@ -36,7 +40,7 @@ SHELL		:=	/bin/bash
 all :			$(NAME)
 
 $(NAME) :		$(OBJ_DIR) $(OBJS)
-	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o ft_puts
+	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o $(NAME)
 	@printf "\r\033[38;5;117m✓ MAKE $(NAME)\033[0m\033[0m\n"
 
 $(OBJ_DIR) :

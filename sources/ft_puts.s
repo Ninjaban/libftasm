@@ -9,6 +9,7 @@ section .text
 _ft_puts:
     mov rdi, STDOUT
     call _ft_strlen
+    mov rdx, rax
     mov rax, MACH_SYSCALL(WRITE)
     syscall
     ret

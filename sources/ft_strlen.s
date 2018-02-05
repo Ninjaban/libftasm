@@ -1,18 +1,16 @@
-section .data
 section .text
     global _ft_strlen
-    global _internal_strlen
-    global _ft_strlen_ret
 
 _ft_strlen:
-    push rcx
-    push rdi
-    sub rcx, rcx
-    sub rdi, rdi
-    not rcx
-    repne scasb
-    not rcx
+    mov rcx, 0
+    jmp _ft_strlen_loop
+
+_ft_strlen_loop:
+    cmp byte [rsi + rcx], 0
+    je _ft_strlen_end
+    inc rcx
+    jmp _ft_strlen_loop
+
+_ft_strlen_end:
     mov rax, rcx
-    pop rcx
-    pop rdi
     ret

@@ -1,6 +1,5 @@
 section .data
     string db 'Hello World!', 10
-    len equ $ - string
 
 section .text
     global start
