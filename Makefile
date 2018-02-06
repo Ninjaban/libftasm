@@ -29,6 +29,10 @@ SRC_BASE	=	ft_puts.s \
 				ft_isalnum.s \
 				ft_isascii.s \
 				ft_isprint.s \
+				ft_bzero.s \
+				ft_tolower.s \
+				ft_toupper.s \
+				ft_strcat.s \
 				main.s
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)
