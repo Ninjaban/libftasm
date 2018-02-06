@@ -33,6 +33,9 @@ SRC_BASE	=	ft_puts.s \
 				ft_tolower.s \
 				ft_toupper.s \
 				ft_strcat.s \
+				ft_memset.s \
+				ft_memcpy.s \
+				ft_strdup.s \
 				main.s
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)

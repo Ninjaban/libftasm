@@ -6,7 +6,7 @@ _ft_isascii:
     jmp _ft_isascii_0
 
 _ft_isascii_0:
-    cmp rsi, 48
+    cmp rsi, 0
     jge _ft_isascii_127
     jmp _ft_isascii_end
 
