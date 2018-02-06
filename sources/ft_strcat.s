@@ -5,13 +5,20 @@ section .text
 _ft_strcat:
     call _ft_strlen
     mov rdx, rax
+    cmp rcx, 0
+    jg _ft_strcat_check
+    jmp _ft_strcat_end
+
+_ft_strcat_check:
+    add rdx, rcx
+    mov byte [rdi+rdx], 0
     jmp _ft_strcat_loop
 
 _ft_strcat_loop:
     cmp rcx, 0
-    jle ft_strcat_end
+    je ft_strcat_end
     dec rcx
-    mov byte [rdi+rdx+rcx], byte [rsi+rcx]
+    mov byte [rdi+rdx], byte [rsi+rcx]
     jmp _ft_strcat_loop
 
 _ft_strcat_end:
