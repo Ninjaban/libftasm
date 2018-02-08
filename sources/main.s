@@ -11,14 +11,14 @@ section .text
 	extern _ft_strcat
 	extern _ft_strlen
 	extern _ft_strdup
+	extern _ft_cat
 
 start:
     call _main
     ret
 
 _main:
-    lea rsi, [rel data]
-    call _ft_strdup
-    mov rsi, rax
-    call _ft_puts
+lea rsi, [rel data]
+    mov rdx, 0
+    call _ft_cat
 	ret

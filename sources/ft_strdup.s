@@ -14,16 +14,16 @@ _ft_strdup_dup:
     call _ft_strlen
     inc rax
     mov rdi, rax
-    mov r8, rax
+    mov r14, rax
     mov r15, rsi
     call _malloc
-    mov rdi, rax
-    mov byte [rdi + r8], 0
-    mov rcx, r8
+    cmp rax, 0
+    je _ft_strdup_end
     mov rsi, r15
-    call _ft_puts
+    mov rdi, rax
+    mov rcx, r14
+    mov byte [rdi + rcx], 0
     call _ft_memcpy
-    jmp _ft_strdup_end
 
 _ft_strdup_end:
     ret
