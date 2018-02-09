@@ -1,30 +1,37 @@
 %define MACH_SYSCALL(nb)    0x2000000 | nb
+%define STDOUT              1
 %define READ                3
-%define READ_BUF            4096
+%define WRITE               4
 
 section .data
-    buffer_size dw 1024
-
+    buffer_size equ 10
 section .bss
-    buffer resb 1024
+    buffer resb 10
 
 section .text
     global _ft_cat
-    extern _ft_puts
 
 _ft_cat:
-    mov rcx, buffer
-    mov r15, rcx
+    jmp _ft_cat_read
+
+_ft_cat_read:
+    mov r14, rdi
+    lea rcx, [rel buffer]
     mov rdx, buffer_size
     mov rax, MACH_SYSCALL(READ)
     syscall
     cmp rax, 0
-    je _ft_cat_end
-    sub r15, 9
-    mov byte [r15 + rax], 0
-    mov rsi, r15
-    call _ft_puts
-    jmp _ft_cat
+    jle _ft_cat_end
+    jmp _ft_cat_write
+
+_ft_cat_write:
+    mov rdx, rax
+    lea rsi, [rel buffer]
+    mov rdi, STDOUT
+    mov rax, MACH_SYSCALL(WRITE)
+    syscall
+    mov rdi, r14
+    jmp _ft_cat_read
 
 _ft_cat_end:
     ret

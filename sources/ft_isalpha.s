@@ -6,22 +6,22 @@ _ft_isalpha:
     jmp _ft_isalpha_A
 
 _ft_isalpha_A:
-    cmp rsi, 65
+    cmp rdi, 'A'
     jge _ft_isalpha_Z
     jmp _ft_isalpha_a
 
 _ft_isalpha_Z:
-    cmp rsi, 90
+    cmp rdi, 'Z'
     jle _ft_isalpha_ok
     jmp _ft_isalpha_a
 
 _ft_isalpha_a:
-    cmp rsi, 97
+    cmp rdi, 'a'
     jge _ft_isalpha_z
     jmp _ft_isalpha_end
 
 _ft_isalpha_z:
-    cmp rsi, 122
+    cmp rdi, 'z'
     jle _ft_isalpha_ok
     jmp _ft_isalpha_end
 

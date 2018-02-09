@@ -18,7 +18,6 @@ start:
     ret
 
 _main:
-lea rsi, [rel data]
-    mov rdx, 0
+    mov rdi, 0
     call _ft_cat
 	ret

@@ -3,12 +3,13 @@ section .text
     extern _ft_strlen
 
 _ft_strcat:
-    mov r9, rcx
-    mov r11, rsi
-    mov rsi, rdi
+    mov r11, rdi
+    mov rdi, rsi
+    call _ft_strlen
+    mov r9, rax
+    mov rdi, r11
     call _ft_strlen
     mov r10, rax
-    mov rsi, r11
     cmp r9, 0
     jg _ft_strcat_check
     jmp _ft_strcat_end

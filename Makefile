@@ -29,6 +29,7 @@ SRC_BASE	=	ft_puts.s \
 				ft_isalnum.s \
 				ft_isascii.s \
 				ft_isprint.s \
+				ft_isdigit.s \
 				ft_bzero.s \
 				ft_tolower.s \
 				ft_toupper.s \
@@ -36,8 +37,7 @@ SRC_BASE	=	ft_puts.s \
 				ft_memset.s \
 				ft_memcpy.s \
 				ft_strdup.s \
-				ft_cat.s \
-				main.s
+				ft_cat.s
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.s=.o))
@@ -48,7 +48,8 @@ SHELL		:=	/bin/bash
 all :			$(NAME)
 
 $(NAME) :		$(OBJ_DIR) $(OBJS)
-	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o $(NAME)
+#	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o $(NAME)
+	@ar rcs $(NAME) $(OBJS)
 	@printf "\r\033[38;5;117m✓ MAKE $(NAME)\033[0m\033[0m\n"
 
 $(OBJ_DIR) :

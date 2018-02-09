@@ -6,32 +6,32 @@ _ft_isalnum:
     jmp _ft_isalnum_A
 
 _ft_isalnum_A:
-    cmp rsi, 65
+    cmp rdi, 'A'
     jge _ft_isalnum_Z
     jmp _ft_isalnum_a
 
 _ft_isalnum_Z:
-    cmp rsi, 90
+    cmp rdi, 'Z'
     jle _ft_isalnum_ok
     jmp _ft_isalnum_a
 
 _ft_isalnum_a:
-    cmp rsi, 97
+    cmp rdi, 'a'
     jge _ft_isalnum_z
     jmp _ft_isalnum_0
 
 _ft_isalnum_z:
-    cmp rsi, 122
+    cmp rdi, 'z'
     jle _ft_isalnum_ok
     jmp _ft_isalnum_0
 
 _ft_isalnum_0:
-    cmp rsi, 48
+    cmp rdi, '0'
     jge _ft_isalnum_9
     jmp _ft_isalnum_end
 
 _ft_isalnum_9:
-    cmp rsi, 57
+    cmp rdi, '9'
     jle _ft_isalnum_ok
     jmp _ft_isalnum_end
 

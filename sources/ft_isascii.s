@@ -6,12 +6,12 @@ _ft_isascii:
     jmp _ft_isascii_0
 
 _ft_isascii_0:
-    cmp rsi, 0
+    cmp rdi, 0
     jge _ft_isascii_127
     jmp _ft_isascii_end
 
 _ft_isascii_127:
-    cmp rsi, 127
+    cmp rdi, 127
     jle _ft_isascii_ok
     jmp _ft_isascii_end
 

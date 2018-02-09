@@ -10,7 +10,7 @@ _ft_bzero_loop:
     cmp rcx, 0
     je _ft_bzero_end
     dec rcx
-    mov byte [rsi+rcx], 0
+    mov byte [rdi+rcx], 0
     jmp _ft_bzero_loop
 
 _ft_bzero_end:

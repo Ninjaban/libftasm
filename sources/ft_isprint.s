@@ -6,12 +6,12 @@ _ft_isprint:
     jmp _ft_isprint_32
 
 _ft_isprint_32:
-    cmp rsi, 32
+    cmp rdi, 32
     jge _ft_isprint_126
     jmp _ft_isprint_end
 
 _ft_isprint_126:
-    cmp rsi, 126
+    cmp rdi, 126
     jle _ft_isprint_ok
     jmp _ft_isprint_end
 

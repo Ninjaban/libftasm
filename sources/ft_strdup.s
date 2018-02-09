@@ -2,27 +2,27 @@ section .text
     global _ft_strdup
     extern _ft_strlen
     extern _ft_memcpy
-    extern _ft_puts
     extern _malloc
     
 _ft_strdup:
-    cmp rsi, 0
+    cmp rdi, 0
     je _ft_strdup_end
     jmp _ft_strdup_dup
 
 _ft_strdup_dup:
     call _ft_strlen
-    inc rax
+    push rdi
     mov rdi, rax
-    mov r14, rax
-    mov r15, rsi
+    inc rdi
+    mov r15, rax
     call _malloc
     cmp rax, 0
     je _ft_strdup_end
-    mov rsi, r15
+    pop rdi
+    mov rsi, rdi
     mov rdi, rax
-    mov rcx, r14
-    mov byte [rdi + rcx], 0
+    mov rdx, r15
+    mov byte [rdi + rdx], 0
     call _ft_memcpy
 
 _ft_strdup_end:
