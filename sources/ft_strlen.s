@@ -1,18 +1,18 @@
 section .text
-    global _ft_strlen
+	global _ft_strlen
 
 _ft_strlen:
-    push r8
-    mov r8, 0
-    jmp _ft_strlen_loop
+	push rcx		; Sauve rcx sur la pile
+	jmp _ft_strlen_loop	; Call _ft_strlen_loop
 
 _ft_strlen_loop:
-    cmp byte [rdi + r8], 0
-    je _ft_strlen_end
-    inc r8
-    jmp _ft_strlen_loop
+	cmp byte [rdi + rcx], 0
+	je _ft_strlen_end	; IF rdi[rcx] == 0 THEN Call _ft_strlen_end
+	inc rcx			; rcx += 1
+	jmp _ft_strlen_loop	; Call _ft_strlen_loop
 
 _ft_strlen_end:
-    mov rax, r8
-    pop r8
-    ret
+	mov rax, rcx		; rax = rcx
+
+	pop rcx			; reset rcx
+	ret			; return (rax);

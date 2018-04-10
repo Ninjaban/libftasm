@@ -2,25 +2,23 @@
 %define STDOUT              1
 %define WRITE               4
 
-section .data
-    nl db 10
-
 section .text
-    global _ft_puts
-    extern _ft_strlen
+	global _ft_puts
+	extern _ft_strlen
 
 _ft_puts:
-    call _ft_strlen
-    push rdx
-    mov rdx, rax
-    mov rsi, rdi
-    mov rdi, STDOUT
-    mov rax, MACH_SYSCALL(WRITE)
-    syscall
-    lea rsi,[rel nl]
-    mov rdx, 1
-    mov rdi, STDOUT
-    mov rax, MACH_SYSCALL(WRITE)
-    syscall
-    pop rdx
-    ret
+	call _ft_strlen			; Call _ft_strlen
+
+	push rdx			; Sauve rdx sur la pile
+	push rsi			; Sauve rsi sur la pile
+
+	mov rdx, rax			; Param 1 = _ft_strlen return
+	mov rsi, rdi			; Param 2 = rdi
+	mov rdi, STDOUT			; Param 3 = STDOUT
+	mov rax, MACH_SYSCALL(WRITE)	; Initialise l'appelle a write()
+	syscall
+
+	pop rsi				; reset rsi
+	pop rdx				; reset rdx
+
+	ret				; return (rax);
