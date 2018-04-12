@@ -17,7 +17,7 @@ _ft_cat:
 	jmp _ft_cat_read		; Call _ft_cat_read
 
 _ft_cat_read:
-	mov word [rsp+BUFFER_SIZE], rdi
+	mov [rsp+BUFFER_SIZE], rdi
 	mov rcx, rsp
 	mov rdx, BUFFER_SIZE
 	mov rax, MACH_SYSCALL(READ)
@@ -32,7 +32,7 @@ _ft_cat_write:
 	mov rdi, STDOUT
 	mov rax, MACH_SYSCALL(WRITE)
 	syscall
-	mov rdi, word [rsp+BUFFER_SIZE]
+	mov rdi, [rsp+BUFFER_SIZE]
 	jmp _ft_cat_read
 
 _ft_cat_end:

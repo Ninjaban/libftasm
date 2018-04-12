@@ -1,32 +1,23 @@
 section .text
-    global _ft_memcpy
+	global _ft_memcpy
 
 _ft_memcpy:
-    push r8
-    push r9
-    push r10
-    mov r9, rdx
-    cmp r9, 0
-    jg _ft_memcpy_check
-    jmp _ft_memcpy_end
-
-_ft_memcpy_check:
-    mov r8, 0
-    mov r10, 0
-    jmp _ft_memcpy_loop
+	push r8				; Sauve r8
+	
+	cmp rdx, 0
+	jg _ft_memcpy_loop		; Si n > 0 va a _ft_memcpy_loop
+	jmp _ft_memcpy_end		; Va a _ft_memcpy_end
 
 _ft_memcpy_loop:
-    cmp r8, r9
-    je _ft_memcpy_end
-    mov al, [rsi + r8]
-    inc r8
-    mov byte [rdi + r10], al
-    inc r10
-    jmp _ft_memcpy_loop
+	cmp rdx, 0
+	je _ft_memcpy_end		; Si n == 0 va a _ft_memcpy_end
+	dec rdx				; n -= 1
+	mov r8, [rsi+rdx]		; tmp = src[n]
+	mov [rdi+rdx], r8		; dest[n] = tmp
+	jmp _ft_memcpy_loop		; Va a _ft_memcpy_loop
 
 _ft_memcpy_end:
-    mov rax, rdi
-    pop r10
-    pop r9
-    pop r8
-    ret
+	mov rax, rdi			; Set rax a dest
+	
+	pop r8				; Reset r8
+	ret				; return (rax);
