@@ -11,12 +11,13 @@ _ft_strcat:
 	mov [rsp+0x00], rdi	; Sauve rdi sur la stack
 	mov rdi, rsi		; Set rdi a rsi
 	call _ft_strlen		; Call ft_strlen
-	mov r9, rax		; Set r9 au retour de ft_strlen
+	mov [rsp+0x08], rax	; Sauve le retour de ft_strlen sur la stack
 
 	mov rdi, [rsp+0x00]	; Charge rdi depuis la stack
 	call _ft_strlen		; Call ft_strlen
-	mov [rsp+0x08], rax	; Sauve le retour de ft_strlen sur la stack
-	cmp [rsp+0x08], 0
+	mov r9, rax		; Set r9 au retour de ft_strlen
+
+	cmp byte [rsp+0x08], 0
 	jg _ft_strcat_check	; Si src len > 0 va a _ft_strcat_check
 	jmp _ft_strcat_end	; Va a _ft_strcat_end
 

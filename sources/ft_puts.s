@@ -12,13 +12,13 @@ _ft_puts:
 	push rdx			; Sauve rdx sur la pile
 	push rsi			; Sauve rsi sur la pile
 
-	mov rdx, rax			; Param 1 = ft_strlen return
+	mov rdx, rax			; Param 3 = ft_strlen return
 	mov rsi, rdi			; Param 2 = String
 
 	mov word [rsi+rdx], 10		; Set String + String_len a '\n'
 	inc rdx				; String_len += 1
 	
-	mov rdi, STDOUT			; Param 3 = STDOUT
+	mov rdi, STDOUT			; Param 1 = STDOUT
 	mov rax, MACH_SYSCALL(WRITE)	; Initialise l'appelle a write()
 	syscall
 

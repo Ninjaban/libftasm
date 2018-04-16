@@ -12,9 +12,9 @@
 
 NAME		=	libfts.a
 
-CC			=	nasm -f macho64
+CC		=	nasm -f macho64
 FLAGS		=
-AR			=	ld
+AR		=	ld
 
 LEN_NAME	=	`printf "%s" $(NAME) | wc -c`
 DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
@@ -23,21 +23,21 @@ SRC_DIR		=	sources/
 INC_DIR		=	include/
 OBJ_DIR		=	objects/
 
-SRC_BASE	=	ft_puts.s \
-				ft_strlen.s \
-				ft_isalpha.s \
-				ft_isalnum.s \
-				ft_isascii.s \
-				ft_isprint.s \
-				ft_isdigit.s \
-				ft_bzero.s \
-				ft_tolower.s \
-				ft_toupper.s \
-				ft_strcat.s \
-				ft_memset.s \
-				ft_memcpy.s \
-				ft_strdup.s \
-				ft_cat.s
+SRC_BASE	=	ft_bzero.s	\
+			ft_cat.s	\
+			ft_isalnum.s	\
+			ft_isalpha.s	\
+			ft_isascii.s	\
+			ft_isdigit.s	\
+			ft_isprint.s	\
+			ft_memcpy.s	\
+			ft_memset.s	\
+			ft_puts.s	\
+			ft_strcat.s	\
+			ft_strdup.s	\
+			ft_strlen.s	\
+			ft_tolower.s	\
+			ft_toupper.s
 
 SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)
 OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.s=.o))
@@ -48,7 +48,6 @@ SHELL		:=	/bin/bash
 all :			$(NAME)
 
 $(NAME) :		$(OBJ_DIR) $(OBJS)
-#	@ld $(OBJS) -macosx_version_min 10.8 -lSystem -o $(NAME)
 	@ar rcs $(NAME) $(OBJS)
 	@printf "\r\033[38;5;117m✓ MAKE $(NAME)\033[0m\033[0m\n"
 
@@ -65,16 +64,16 @@ $(OBJ_DIR)%.o :		$(SRC_DIR)%.s | $(OBJ_DIR)
 	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
 clean :
-	@if [ -e $(OBJ_DIR) ];									\
-	then													\
-		rm -rf $(OBJ_DIR);									\
+	@if [ -e $(OBJ_DIR) ];						\
+	then								\
+		rm -rf $(OBJ_DIR);					\
 		printf "\r\033[38;5;202m✗ $(NAME)\033[0m\033[0m\n";	\
 	fi;
 
 fclean :		clean
-	@if [ -e $(NAME) ];										\
-	then													\
-		rm -rf $(NAME);										\
+	@if [ -e $(NAME) ];						\
+	then								\
+		rm -rf $(NAME);						\
 		printf "\r\033[38;5;196m✗ $(NAME)\033[0m\033[0m\n";	\
 	fi;
 
