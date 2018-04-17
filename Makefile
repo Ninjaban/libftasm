@@ -12,18 +12,7 @@
 
 NAME		=	libfts.a
 
-CC		=	nasm -f macho64
-FLAGS		=
-AR		=	ld
-
-LEN_NAME	=	`printf "%s" $(NAME) | wc -c`
-DELTA		=	$$(echo "$$(tput cols)-31-$(LEN_NAME)"|bc)
-
-SRC_DIR		=	sources/
-INC_DIR		=	include/
-OBJ_DIR		=	objects/
-
-SRC_BASE	=	ft_bzero.s	\
+SRC		=	ft_bzero.s	\
 			ft_cat.s	\
 			ft_isalnum.s	\
 			ft_isalpha.s	\
@@ -39,44 +28,65 @@ SRC_BASE	=	ft_bzero.s	\
 			ft_tolower.s	\
 			ft_toupper.s
 
-SRCS		=	$(SRC_BASE:%=$(SRC_DIR)%)
-OBJS		=	$(addprefix $(OBJ_DIR), $(SRC_BASE:.s=.o))
-NB			=	$(words $(SRC_BASE))
+DIRSRC		=	sources/
+DIRINC		=	include/
+DIRLIB		=	library/
+DIROBJ		=	objects/
+
+SRCS		=	$(SRC:%=$(DIRSRC)%)
+LIBS		=	$(LIB:%=$(DIRLIB)%)
+
+OBJS		=	$(addprefix $(DIROBJ), $(SRC:.s=.o))
+
+CC		=	nasm -f macho64
+RM		=	rm -rf
+ECHO		=	printf
+MAKE		=	make -C
+
+CLEAN		=	"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         "
+LEN		=	$$(/bin/echo -n $(NAME) | wc -c)
+DELTA		=	$$(echo "$$(tput cols)-31-$(LEN)"|bc)
+NB		=	$(words $(SRC))
 INDEX		=	0
-SHELL		:=	/bin/bash
+SHELL		=	/bin/bash
 
-all :			$(NAME)
+all		:	$(NAME)
 
-$(NAME) :		$(OBJ_DIR) $(OBJS)
+$(NAME)		:	$(DIROBJ) $(OBJS)
+	@$(eval OBJ_LEN=$(shell echo "$$(echo "$(NAME)" | sed 's/^.*\///')" | wc -c))
+	@$(eval CLEAN_LEN=$(shell echo "$$(tput cols)-6-$(OBJ_LEN)"|bc))
 	@ar rcs $(NAME) $(OBJS)
-	@printf "\r\033[38;5;117m✓ MAKE $(NAME)\033[0m\033[0m\n"
+	@$(ECHO) "\r\033[38;5;040m✓ MAKE $(NAME)%.*s\033[0m\033[0m\n" $(CLEAN_LEN) $(CLEAN)
 
-$(OBJ_DIR) :
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)%.o :		$(SRC_DIR)%.s | $(OBJ_DIR)
+$(DIROBJ)%.o	:	$(DIRSRC)%.s | $(DIROBJ)
 	@$(eval DONE=$(shell echo $$(($(INDEX)*20/$(NB)))))
 	@$(eval PERCENT=$(shell echo $$(($(INDEX)*100/$(NB)))))
 	@$(eval TO_DO=$(shell echo $$((20-$(INDEX)*20/$(NB) - 1))))
-	@$(eval COLOR=$(shell list=(160 196 202 208 215 221 226 227 190 154 118 82 46); index=$$(($(PERCENT) * $${#list[@]} / 100)); echo "$${list[$$index]}"))
-	@printf "\r\033[38;5;%dm⌛ [%s]: %2d%% `printf '█%.0s' {0..$(DONE)}`%*s❙%*.*s\033[0m\033[0m" $(COLOR) $(NAME) $(PERCENT) $(TO_DO) "" $(DELTA) $(DELTA) "$(shell echo "$@" | sed 's/^.*\///')"
-	@$(CC) $(FLAGS) $< -o $@ -I $(INC_DIR)
+	@$(eval COLOR=$(shell list=(20 21 26 27 32 33 38 39 44 45 50 51); index=$$(($(PERCENT) * $${#list[@]} / 100)); echo "$${list[$$index]}"))
+	@$(ECHO) "\r\033[38;5;%dm⌛ [%s]: %2d%% `printf '█%.0s' {0..$(DONE)}`%*s❙%*.*s\033[0m\033[0m" $(COLOR) $(NAME) $(PERCENT) $(TO_DO) "" $(DELTA) $(DELTA) "$(shell echo "$@" | sed 's/^.*\///')"
+	@$(CC) -o $@ $<
+	@$(eval OBJ_LEN=$(shell echo "$$(echo "$@" | sed 's/^.*\///')" | wc -c))
+	@$(eval CLEAN_LEN=$(shell echo "$$(tput cols)-1-$(OBJ_LEN)"|bc))
+	@$(ECHO) "\r\033[38;5;%dm✓ %s\033[0m\033[0m%.*s\n\033[38;5;%dm⌛ [%s]: %2d%% `printf '█%.0s' {0..$(DONE)}`%*s❙%*.*s\033[0m\033[0m"  $(COLOR) "$(shell echo "$@" | sed 's/^.*\///')"  $(CLEAN_LEN) $(CLEAN) $(COLOR) $(NAME) $(PERCENT) $(TO_DO) "" $(DELTA) $(DELTA) "$(shell echo "$@" | sed 's/^.*\///')"
 	@$(eval INDEX=$(shell echo $$(($(INDEX)+1))))
 
-clean :
-	@if [ -e $(OBJ_DIR) ];						\
+$(DIROBJ)	:
+	@mkdir -p $(DIROBJ)
+
+clean		:
+	@if [ -e $(DIROBJ) ];						\
 	then								\
-		rm -rf $(OBJ_DIR);					\
-		printf "\r\033[38;5;202m✗ $(NAME)\033[0m\033[0m\n";	\
+		$(RM) $(DIROBJ);					\
+		$(ECHO) "\r\033[38;5;202m✗ $(NAME)\033[0m\033[0m\n";	\
 	fi;
 
-fclean :		clean
+fclean		:	clean
 	@if [ -e $(NAME) ];						\
 	then								\
-		rm -rf $(NAME);						\
-		printf "\r\033[38;5;196m✗ $(NAME)\033[0m\033[0m\n";	\
+		$(RM) $(NAME);						\
+		$(ECHO) "\r\033[38;5;196m✗ $(NAME)\033[0m\033[0m\n";	\
 	fi;
 
-re :			fclean all
+re		:	fclean all
 
-.PHONY :		fclean clean re
+.PHONY		:	all fclean clean re
