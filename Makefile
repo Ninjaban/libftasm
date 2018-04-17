@@ -75,6 +75,9 @@ $(DIROBJ)%.o	:	$(DIRSRC)%.s | $(DIROBJ)
 $(DIROBJ)	:
 	@mkdir -p $(DIROBJ)
 
+test		:	all
+	@gcc -Wall -Wextra -Werror tests.c $(NAME) -o tests
+
 clean		:
 	@if [ -e $(DIROBJ) ];						\
 	then								\
