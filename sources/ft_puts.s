@@ -2,11 +2,23 @@
 %define STDOUT              1
 %define WRITE               4
 
+section .data
+	string db '(null)', 0
+	
 section .text
 	global _ft_puts
 	extern _ft_strlen
 
 _ft_puts:
+	cmp rdi, 0
+	je _ft_puts_null		; Si rdi est NULL va a _ft_puts_null
+	jmp _ft_puts_string		; Va a _ft_puts_string	
+
+_ft_puts_null:
+	lea rdi, [rel string]		; Charge string dans rdi
+	jmp _ft_puts_string		; Va a _ft_puts_string
+
+_ft_puts_string:	
 	call _ft_strlen			; Call ft_strlen()
 
 	push rdx			; Sauve rdx sur la pile
