@@ -6,11 +6,12 @@
 #    By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 13:07:37 by jcarra            #+#    #+#              #
-#    Updated: 2018/04/17 13:07:37 by jcarra           ###   ########.fr        #
+#    Updated: 2018/04/17 14:59:17 by jcarra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libfts.a
+TESTS		=	tests
 
 SRC		=	ft_bzero.s	\
 			ft_cat.s	\
@@ -75,21 +76,27 @@ $(DIROBJ)%.o	:	$(DIRSRC)%.s | $(DIROBJ)
 $(DIROBJ)	:
 	@mkdir -p $(DIROBJ)
 
-test		:	all
-	@gcc -Wall -Wextra -Werror tests.c $(NAME) -o tests
+$(TESTS)	:	all
+	@gcc -Wall -Wextra -Werror tests.c $(NAME) -o $(TESTS)
+	@$(ECHO) "\033[38;5;040m✓ MAKE $(TESTS)\033[0m\033[0m\n"
 
 clean		:
 	@if [ -e $(DIROBJ) ];						\
 	then								\
 		$(RM) $(DIROBJ);					\
-		$(ECHO) "\r\033[38;5;202m✗ $(NAME)\033[0m\033[0m\n";	\
+		$(ECHO) "\033[38;5;202m✗ $(NAME)\033[0m\033[0m\n";	\
 	fi;
 
 fclean		:	clean
 	@if [ -e $(NAME) ];						\
 	then								\
 		$(RM) $(NAME);						\
-		$(ECHO) "\r\033[38;5;196m✗ $(NAME)\033[0m\033[0m\n";	\
+		$(ECHO) "\033[38;5;196m✗ $(NAME)\033[0m\033[0m\n";	\
+	fi;
+	@if [ -e $(TESTS) ];						\
+	then								\
+		$(RM) $(TESTS);						\
+		$(ECHO) "\033[38;5;196m✗ $(TESTS)\033[0m\033[0m\n";	\
 	fi;
 
 re		:	fclean all
