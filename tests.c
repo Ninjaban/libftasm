@@ -14,7 +14,7 @@
 #define TRUE			1
 #define FALSE			0
 
-#define DEBUG			FALSE
+#define DEBUG			TRUE
 #define FT_DEBUG(in_context, ...)										\
 	do {																\
 	if (DEBUG == TRUE) {												\
@@ -24,13 +24,15 @@
 		}																\
 	} while (0)
 
-#define TEST_BZERO		TRUE
-#define TEST_CAT		FALSE
+#define TEST_BZERO		FALSE
+#define TEST_CAT		TRUE
 #define TEST_IS			TRUE
 #define TEST_MEM		TRUE
 #define TEST_PUTS		FALSE
 #define TEST_STR		TRUE
-#define TEST_TO			TRUE
+#define TEST_TO			FALSE
+
+#define READ_ENTRY		TRUE
 
 #define SCAN_MIN		(-100)
 #define SCAN_MAX		(+300)
@@ -127,6 +129,13 @@ static int		test_cat(void)
 	printf("\n\033[38;5;69m=== TEST 3 ===\033[0m\033[0m\n(fd = open(\"./Makefile\", O_RDONLY))\n");
 	fd = open("./Makefile", O_RDONLY);
 	ft_cat(fd);
+
+	if (READ_ENTRY == TRUE)
+	{
+		printf("\n\033[38;5;69m=== TEST 4 ===\033[0m\033[0m\n(fd = 0)\n");
+		fd = 0;
+		ft_cat(fd);
+	}
 
 	printf("\033[38;5;2m*** Fin de Verification visuelle ***\033[0m\033[0m\n");
 	return (TRUE);

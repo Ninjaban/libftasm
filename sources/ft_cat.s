@@ -4,8 +4,8 @@
 %define WRITE               	4
 %define BUFFER_SIZE		1024
 
-section .bss
-	buffer resb BUFFER_SIZE+1	; Tableau de char de taille BUFFER_SIZE+1
+section .data
+	buffer times BUFFER_SIZE db 0	; Cree un tableau de taille BUFFER_SIZE
 
 section .text
 	global _ft_cat

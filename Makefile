@@ -6,7 +6,7 @@
 #    By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 13:07:37 by jcarra            #+#    #+#              #
-#    Updated: 2018/04/17 15:05:09 by jcarra           ###   ########.fr        #
+#    Updated: 2018/04/20 12:25:20 by jcarra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC		=	ft_bzero.s	\
 			ft_memcpy.s	\
 			ft_memset.s	\
 			ft_puts.s	\
+			ft_putstr.s	\
 			ft_strcat.s	\
 			ft_strdup.s	\
 			ft_strlen.s	\

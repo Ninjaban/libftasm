@@ -1,33 +1,18 @@
 section .text
 	global _ft_isalpha
+	extern _ft_islower
+	extern _ft_isupper
 
 _ft_isalpha:
 	xor rax, rax		; Set rax a 0
-	jmp _ft_isalpha_A	; Va a _ft_isalpha_A
 
-_ft_isalpha_A:
-	cmp rdi, 'A'
-	jge _ft_isalpha_Z	; Si rdi >= 'A' va a _ft_isalpha_Z
-	jmp _ft_isalpha_a	; Va a _ft_isalpha_a
+	call _ft_islower	; Call ft_islower
+	cmp rax, 1
+	je _ft_isalpha_end	; Si le retour de ft_islower == 1 va a _ft_isalpha_end
 
-_ft_isalpha_Z:
-	cmp rdi, 'Z'
-	jle _ft_isalpha_ok	; Si rdi <= 'Z' va a _ft_isalpha_ok
-	jmp _ft_isalpha_a	; Va a _ft_isalpha_a
+	call _ft_isupper	; Call ft_islower
 
-_ft_isalpha_a:
-	cmp rdi, 'a'
-	jge _ft_isalpha_z	; Si rdi >= 'a' va a _ft_isalpha_z
-	jmp _ft_isalpha_end	; Va a _ft_isalpha_end
-
-_ft_isalpha_z:
-	cmp rdi, 'z'
-	jle _ft_isalpha_ok	; Si rdi <= 'z' va a _ft_isalpha_ok
-	jmp _ft_isalpha_end	; Va a _ft_isalpha_end
-
-_ft_isalpha_ok:
-	inc rax			; Set rax a 1
-	jmp _ft_isalpha_end	; Va a _ft_isalpha_end
-
+	jmp _ft_isalpha_end
+	
 _ft_isalpha_end:
 	ret			; return (rax);
