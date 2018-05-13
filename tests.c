@@ -25,10 +25,10 @@
 	} while (0)
 
 #define TEST_BZERO		FALSE
-#define TEST_CAT		TRUE
+#define TEST_CAT		FALSE
 #define TEST_IS			TRUE
 #define TEST_MEM		TRUE
-#define TEST_PUTS		FALSE
+#define TEST_PUTS		TRUE
 #define TEST_STR		TRUE
 #define TEST_TO			FALSE
 
@@ -298,6 +298,7 @@ static int		test_puts(void)
 	printf("\033[38;5;214m*** Verification visuelle ***\033[0m\033[0m\n");
 	str = strdup(STRINGL);
 
+	printf("\033[38;5;69m*** TEST PUTS ***\033[0m\033[0m\n");
 	printf("\033[38;5;69m=== TEST 1 ===\033[0m\033[0m\n");
 	puts(str);
 	ft_puts(str);
@@ -320,7 +321,29 @@ static int		test_puts(void)
 	puts(NULL);
 	ft_puts(NULL);
 
-	printf("\033[38;5;2m*** Fin de Verification visuelle ***\033[0m\033[0m\n");
+	printf("\033[38;5;69m*** TEST PUTSTR ***\033[0m\033[0m\n");
+	free(str);
+	str = strdup(STRINGL);
+
+	printf("\033[38;5;69m=== TEST 1 ===\033[0m\033[0m\n");
+	ft_putstr(str);
+
+	memset(str + 25, '\0', 2);
+
+	printf("\n\033[38;5;69m=== TEST 2 ===\033[0m\033[0m\n");
+	ft_putstr(str);
+
+	printf("\n\033[38;5;69m=== TEST 3 ===\033[0m\033[0m\n");
+	ft_putstr(str + 26);
+
+	printf("\n\033[38;5;69m=== TEST 4 ===\033[0m\033[0m\n");
+	ft_putstr(str + 30);
+
+	printf("\n\033[38;5;69m=== TEST 5 ===\033[0m\033[0m\n");
+	ft_putstr(NULL);
+
+	free(str);
+	printf("\n\033[38;5;2m*** Fin de Verification visuelle ***\033[0m\033[0m\n");
 	return (TRUE);
 }
 

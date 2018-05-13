@@ -6,7 +6,7 @@
 /*   By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 10:16:46 by jcarra            #+#    #+#             */
-/*   Updated: 2018/04/17 10:23:24 by jcarra           ###   ########.fr       */
+/*   Updated: 2018/05/13 10:58:53 by jcarra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int			ft_isupper(int c);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memset (void *s, int c, size_t n);
 int			ft_puts(const char *s);
+void		ft_putstr(const char *s);
+void		ft_fputstr(int fd, const char *s);
 char		*ft_strcat(char *dest, const char *src);
 char		*ft_strdup(const char *s);
 size_t		ft_strlen(const char *s);
