@@ -6,7 +6,7 @@
 #    By: jcarra <jcarra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/17 13:07:37 by jcarra            #+#    #+#              #
-#    Updated: 2018/05/13 11:08:57 by jcarra           ###   ########.fr        #
+#    Updated: 2018/05/17 12:54:55 by jcarra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC		=	ft_bzero.s	\
 			ft_isupper.s	\
 			ft_memcpy.s	\
 			ft_memset.s	\
+			ft_memcmp.s	\
 			ft_puts.s	\
 			ft_putstr.s	\
 			ft_fputstr.s	\
@@ -79,7 +80,7 @@ $(DIROBJ)	:
 	@mkdir -p $(DIROBJ)
 
 $(TESTS)	:	all
-	@gcc -Wall -Wextra -Werror tests.c $(NAME) -o $(TESTS)
+	@gcc -Wall -Wextra -Werror DIRTEST/tests.c $(NAME) -o $(TESTS)
 	@$(ECHO) "\033[38;5;040m✓ MAKE $(TESTS)\033[0m\033[0m\n"
 
 clean		:

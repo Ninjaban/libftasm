@@ -9,12 +9,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "include/libfts.h"
+#include "../include/libfts.h"
 
 #define TRUE			1
 #define FALSE			0
 
-#define DEBUG			TRUE
+#define DEBUG			FALSE
 #define FT_DEBUG(in_context, ...)										\
 	do {																\
 	if (DEBUG == TRUE) {												\
@@ -24,13 +24,13 @@
 		}																\
 	} while (0)
 
-#define TEST_BZERO		FALSE
+#define TEST_BZERO		TRUE
 #define TEST_CAT		FALSE
 #define TEST_IS			TRUE
 #define TEST_MEM		TRUE
-#define TEST_PUTS		TRUE
+#define TEST_PUTS		FALSE
 #define TEST_STR		TRUE
-#define TEST_TO			FALSE
+#define TEST_TO			TRUE
 
 #define READ_ENTRY		TRUE
 
@@ -255,6 +255,8 @@ static int		test_mem(void)
 {
 	char	s1[TAB_LEN];
 	char	s2[TAB_LEN];
+	int		d1;
+	int		d2;
 
 	bzero(s1, TAB_LEN);
 	bzero(s2, TAB_LEN);
@@ -283,6 +285,24 @@ static int		test_mem(void)
 	{
 		FT_DEBUG("UNIX {%.*s}", TAB_LEN, s1);
 		FT_DEBUG("FT   {%.*s}", TAB_LEN, s2);
+		return (FALSE);
+	}
+
+	d1 = memcmp(STRING, STRING, STRING_LEN - 1);
+	d2 = ft_memcmp(STRING, STRING, STRING_LEN - 1);
+	if (d1 != d2)
+	{
+		FT_DEBUG("UNIX %d", d1);
+		FT_DEBUG("FT   %d", d2);
+		return (FALSE);
+	}
+
+	d1 = memcmp(STRING, STRINGL, STRINGL_LEN - 1);
+	d2 = ft_memcmp(STRING, STRINGL, STRINGL_LEN - 1);
+	if (d1 != d2)
+	{
+		FT_DEBUG("UNIX %d", d1);
+		FT_DEBUG("FT   %d", d2);
 		return (FALSE);
 	}
 
