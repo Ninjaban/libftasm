@@ -15,5 +15,3 @@ _ft_memcmp:
 _ft_memcmp_end:	
 	pop rcx			; reset rcx
 	ret
-
-
